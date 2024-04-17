@@ -2,23 +2,33 @@ from inventory_report.product import Product
 
 
 def test_product_report(capsys) -> None:
+    id = "1"
+    product_name = "Hydra bébé"
+    company_name = "Mustela"
+    manufacturing_date = "11/11/2022"
+    expiration_date = "11/11/2025"
+    serial_number = "123456789"
+    storage_instructions = "frágil"
     product = Product(
-        "1",
-        "Leite",
-        "Parmalat",
-        "10/01/2024",
-        "10/02/2024",
-        "1821318274",
-        "Guardar em lugar ventilado e longe do sol",
+        id,
+        product_name,
+        company_name,
+        manufacturing_date,
+        expiration_date,
+        serial_number,
+        storage_instructions,
     )
 
-    print(product)
-    captured = capsys.readouterr()
+    response = str(product)
 
-    assert captured.out == (
-        "The product 1 - Leite with serial number 1821318274"
-        " manufactured on 10/01/2024 by the company Parmalat"
-        " valid until 10/02/2024 must be stored according to"
-        " the following instructions: Guardar em lugar ventilado"
-        " e longe do sol.\n"
+    expected_response = (
+        f"The product {id} - {product_name} "
+        f"with serial number {serial_number} "
+        f"manufactured on {manufacturing_date} "
+        f"by the company {company_name} "
+        f"valid until {expiration_date} "
+        "must be stored according to the following instructions: "
+        f"{storage_instructions}."
     )
+
+    assert response == expected_response
